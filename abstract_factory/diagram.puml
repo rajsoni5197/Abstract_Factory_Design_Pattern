@@ -1,0 +1,100 @@
+@startuml Diagram
+
+class Client
+{
+    + Client() : void
+}
+Client --o createFactory
+abstract class createFactory
+{
+    + static createFactory(string str):AbstractFactory*
+}
+
+createFactory --o AbstractFactory
+abstract class AbstractFactory
+{
+    +createChair(): chair*
+    +createSofa : Sofa*
+}
+class ModernFactory
+{
+    overrides
+    +createChair(Chair& ModernChair): chair*
+    +createSofa(sofa& ModernSofa): sofa*
+}
+class VictorianFactory
+{
+    overrides
+    +createChair(Chair& VictorianFactory): chair*
+    +createSofa(sofa& VictorianSofa): sofa*
+
+}
+class ArtDecorFactory
+{
+    overrides
+    +createChair(Chair& ArtDecorChair): chair*
+    +createSofa(sofa& ArtDecorSofa): sofa*
+
+}
+AbstractFactory<---ModernFactory
+AbstractFactory<---VictorianFactory
+AbstractFactory<---ArtDecorFactory
+
+ArtDecorFactory ----o ArtDecorChair
+ArtDecorFactory ----o ArtDecorSofa
+
+ModernFactory ----o ModernChair
+ModernFactory ----o ModernSofa   
+
+VictorianFactory -----o victorianChair 
+VictorianFactory  -----o VictorianSofa 
+
+abstract class chair {
+    +noOfLegs:int
+    +action():void
+}
+class ModernChair
+{
+    override
+    +action():void;
+
+}
+chair <--ModernChair
+
+class victorianChair
+{
+    overrides
+    +action():void
+}
+chair <--victorianChair
+
+class ArtDecorChair
+{
+    overrides
+    +action():void
+}
+chair <--ArtDecorChair
+
+abstract class Sofa
+{
+    +Action():void
+}
+class ModernSofa
+{
+    override
+    +Action():void
+}
+Sofa<--ModernSofa
+class VictorianSofa
+{
+    override
+    +Action():void
+}
+Sofa<--VictorianSofa
+class ArtDecorSofa
+{
+    override
+    +Action():void
+}
+Sofa<--ArtDecorSofa
+
